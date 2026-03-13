@@ -1,6 +1,13 @@
 // Justin Fogo
 // Playable Postcard project -- "Sweet Things"
 // CMPM 120 final project that will be sent to my mom once finished
+//
+// Audio:
+// https://opengameart.org/content/raspberry-jam
+// https://opengameart.org/content/two-left-socks
+// https://opengameart.org/content/summers
+// https://opengameart.org/content/202-more-sound-effects
+//
 // Created: 3/9/2026
 
 'use strict'
