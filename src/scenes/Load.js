@@ -27,6 +27,13 @@ class Load extends Phaser.Scene {
         this.load.audio('idle_bgm', 'two_left_socks.ogg')
         this.load.audio('funky_bgm', 'raspberry_jam.ogg')
         this.load.audio('chill_bgm', 'summers.mp3')
+
+        // load sfx
+        this.load.audio('plastic1', 'sfx/Plastic_02.wav')
+        this.load.audio('plastic2', 'sfx/Plastic_03.wav')
+        this.load.audio('plastic3', 'sfx/Plastic_05.wav')
+        this.load.audio('plastic4', 'sfx/Plastic_09.wav')
+        this.load.audio('plastic5', 'sfx/Plastic_10.wav')
     }
 
     create () {
