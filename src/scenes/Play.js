@@ -4,7 +4,8 @@ class Play extends Phaser.Scene {
     }
 
     create () {
-        let idle = this.sound.add('idle_bgm', { loop: true })   // plays idle music on loop until bag is interacted with
+        // plays idle music on loop
+        let idle = this.sound.add('idle_bgm', { loop: true }) 
         idle.play()
 
         let bag = this.physics.add.sprite(w/2, h/2, 'bag').setScale(0.75).setOrigin(0.5)    // adds gummy bear game object with physics
