@@ -34,12 +34,18 @@ class Load extends Phaser.Scene {
         this.load.audio('chill_bgm', 'summers.mp3')
 
         // load sfx
+        // plastic crinkling sfx
         this.load.audio('plastic1', 'sfx/Plastic_02.wav')
         this.load.audio('plastic2', 'sfx/Plastic_03.wav')
         this.load.audio('plastic3', 'sfx/Plastic_05.wav')
         this.load.audio('plastic4', 'sfx/Plastic_09.wav')
         this.load.audio('plastic5', 'sfx/Plastic_10.wav')
+        // dull explosion
         this.load.audio('explosion', 'sfx/synthetic_explosion.flac')
+        // popping sfx
+        this.load.audio('pop1', 'sfx/pop1.ogg')
+        this.load.audio('pop2', 'sfx/pop2.ogg')
+        this.load.audio('pop3', 'sfx/pop3.ogg')
     }
 
     create () {

@@ -119,6 +119,12 @@ class Play extends Phaser.Scene {
         this.sound.play('plastic' + this.plasticIndex, { detune: 50 })  // plays random crinkle sound
     }
 
+    // plays a random pop sound after clicking each gummy bear
+    playPop () {
+        let popIndex = Phaser.Math.Between(1, 3)            // chooses random index
+        this.sound.play('pop' + popIndex, { detune: 50, })  // plays random pop sound
+    }
+
     // for switching music after bag pop
     jukebox () {
         this.idle.stop()                                            // stop playing idle music
@@ -126,6 +132,8 @@ class Play extends Phaser.Scene {
         this.funky.play({ delay: 0.5, loop: true, volume: 0.5, })   // start playing funky music after delay
     }
 
+    // SECOND GAME STATE
+    // spawns all gummy bears
     spawnBears () {
         this.bearsIndex = Phaser.Math.Between(this.MIN_BEARS, this.MAX_BEARS)
         this.remainingBears = this.bearsIndex
@@ -154,6 +162,14 @@ class Play extends Phaser.Scene {
             // sets velocity of each bear
             newBear.body.setVelocityX(Phaser.Math.Between(this.MIN_VEL, this.MAX_VEL) * velXDirection)
             newBear.body.setVelocityY(Phaser.Math.Between(this.MIN_VEL, this.MAX_VEL) * velYDirection)
+
+            // makes each gummy bear clickable
+            newBear.setInteractive({
+                useHandCursor: true,
+                pixelPerfect: true,
+            })
+
+            newBear.on('pointerdown', this.bearPop)
         }
     }
 
@@ -161,7 +177,21 @@ class Play extends Phaser.Scene {
     color () {
         let colorWheel = ['bearR', 'bearO', 'bearY', 'bearG', 'bearB', 'bearP']
         let colorPick = Phaser.Math.Between(0, colorWheel.length - 1)
-        console.log(`color: '${colorWheel[colorPick]}'`)
+        //console.log(`color: '${colorWheel[colorPick]}'`)
         return colorWheel[colorPick]
+    }
+
+    // removes clicked object
+    // based on Nathan Altice's code:
+    // https://github.com/nathanaltice/CleanPop/blob/master/src/main.js (line 98)
+    bearPop (pointer, localX, localY, event) {
+        let sceneContext = this.scene   // saves scene context before we delete anything
+        sceneContext.playPop()          // plays pop sound
+        this.destroy()                  // destory child object
+        sceneContext.remainingBears--   // lower total bears counter
+
+        if (!sceneContext.remainingBears) {
+            console.log('done')
+        }
     }
 }
