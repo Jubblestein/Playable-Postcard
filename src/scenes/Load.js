@@ -19,7 +19,12 @@ class Load extends Phaser.Scene {
         
         // load sprites
         this.load.path = './assets/sprites/'
-        this.load.image('bear', 'gummy-bear.png')
+        this.load.image('bearR', 'gummy-bear-red.png')
+        this.load.image('bearO', 'gummy-bear-orange.png')
+        this.load.image('bearY', 'gummy-bear-yellow.png')
+        this.load.image('bearG', 'gummy-bear-green.png')
+        this.load.image('bearB', 'gummy-bear-blue.png')
+        this.load.image('bearP', 'gummy-bear-purple.png')
         this.load.image('bag', 'gummy-bear-bag.png')
 
         // load audio

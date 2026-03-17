@@ -78,6 +78,7 @@ class Play extends Phaser.Scene {
     }
 
     update () {
+        /*
         if (Phaser.Input.Keyboard.JustDown(this.keyDebug)) {
             if (this.bag.debugShowBody) {
                 this.bag.debugShowBody = false
@@ -88,6 +89,7 @@ class Play extends Phaser.Scene {
                 console.log('debug mode: on')
             }
         }
+        */
     }
 
     // create new bag object at the start of the game
@@ -140,13 +142,11 @@ class Play extends Phaser.Scene {
 
             console.log(`bear #'${i}'`)
             // creates physics object
-            let newBear = this.physics.add.sprite(bearX, bearY, 'bear')
+            let newBear = this.physics.add.sprite(bearX, bearY, this.color())
             // adds to 'bears' group
             this.bears.add(newBear)
 
             newBear.setScale(1.5)
-            newBear.setTint(this.color())
-            newBear.tintFill = true
             //newBear.setAlpha(0.5)
             // gummy bears bounce off of world bounds
             newBear.body.setCollideWorldBounds()
@@ -159,7 +159,7 @@ class Play extends Phaser.Scene {
 
     // picks a random color from an array
     color () {
-        let colorWheel = ['#ff4538', '#ff8138', '#fff838', '#53ff38', '#387bff', '#6d38ff']
+        let colorWheel = ['bearR', 'bearO', 'bearY', 'bearG', 'bearB', 'bearP']
         let colorPick = Phaser.Math.Between(0, colorWheel.length - 1)
         console.log(`color: '${colorWheel[colorPick]}'`)
         return colorWheel[colorPick]
