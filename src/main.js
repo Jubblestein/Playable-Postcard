@@ -7,6 +7,7 @@
 // https://opengameart.org/content/two-left-socks
 // https://opengameart.org/content/summers
 // https://opengameart.org/content/202-more-sound-effects
+// https://opengameart.org/content/synthesized-explosion
 //
 // Created: 3/9/2026
 
