@@ -4,6 +4,10 @@ class Play extends Phaser.Scene {
     }
 
     init () {
+        // min and max velocity values
+        this.MIN_VEL = 200
+        this.MAX_VEL = 300
+        
         // origin point coordinates to spawn gummy bears
         this.bearsOriginX = w / 2
         this.bearsOriginY = h / 2
@@ -130,12 +134,34 @@ class Play extends Phaser.Scene {
             let bearX = this.bearsOriginX
             let bearY = this.bearsOriginY
 
+            // randomly choose positive/negative velocity for each bear
+            let velXDirection = Math.round(Math.random()) ? 1 : -1
+            let velYDirection = Math.round(Math.random()) ? 1 : -1
+
             console.log(`bear #'${i}'`)
             // creates physics object
             let newBear = this.physics.add.sprite(bearX, bearY, 'bear')
             // adds to 'bears' group
             this.bears.add(newBear)
 
+            newBear.setScale(1.5)
+            newBear.setTint(this.color())
+            newBear.tintFill = true
+            //newBear.setAlpha(0.5)
+            // gummy bears bounce off of world bounds
+            newBear.body.setCollideWorldBounds()
+            newBear.body.setBounce(1)
+            // sets velocity of each bear
+            newBear.body.setVelocityX(Phaser.Math.Between(this.MIN_VEL, this.MAX_VEL) * velXDirection)
+            newBear.body.setVelocityY(Phaser.Math.Between(this.MIN_VEL, this.MAX_VEL) * velYDirection)
         }
+    }
+
+    // picks a random color from an array
+    color () {
+        let colorWheel = ['#ff4538', '#ff8138', '#fff838', '#53ff38', '#387bff', '#6d38ff']
+        let colorPick = Phaser.Math.Between(0, colorWheel.length - 1)
+        console.log(`color: '${colorWheel[colorPick]}'`)
+        return colorWheel[colorPick]
     }
 }
