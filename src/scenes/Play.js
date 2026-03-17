@@ -16,6 +16,7 @@ class Play extends Phaser.Scene {
         this.MAX_BEARS = 20
         // integer index for spawning bears on the screen
         this.bearsIndex = this.MIN_BEARS
+        this.remainingBears = this.bearsIndex
     }
 
     create () {
@@ -33,12 +34,19 @@ class Play extends Phaser.Scene {
         this.bag.setInteractive({ draggable: true, useHandCursor: true, pixelPerfect: true },)  // passed to Input Manager to allow dragging
         this.bag.on('drag', (pointer, dragX, dragY) => this.bag.setPosition(dragX, dragY))      // moves the bag when you click and drag with mouse
 
+        // group to hold all gummy bears spawned
+        this.bears = this.add.group()
+
         // timer event config for bag pop and spawning gummy bears
+        /*
+        *   MOST GAME STATE TRANSITIONS HAPPEN HERE!
+        */
         let bagPopConfig = { delay: 3000, callback: () => {
             //console.log('POP')
             //console.log(bag.x, bag.y)
             this.bagPop()
             this.jukebox()
+            this.spawnBears()
         }, paused: true}
 
         this.bagPopDelay = this.time.addEvent(bagPopConfig) // timer event to destroy bag after being held for 3s
@@ -61,6 +69,7 @@ class Play extends Phaser.Scene {
             this.plasticNoises.paused = true
         }, this)
 
+        // key to toggle physics debugger
         this.keyDebug = this.input.keyboard.addKey('D')
     }
 
@@ -89,9 +98,12 @@ class Play extends Phaser.Scene {
     bagPop () {
         //this.bag.alpha = 0
         this.plasticNoises.paused = true    // stop bag crinkle sfx
+
+        // save x, y bag postion to the new bears spawning origin point
         this.bearsOriginX = this.bag.x
         this.bearsOriginY = this.bag.y
-        this.bag.destroy()                  // removes bag from scene
+
+        this.bag.destroy()      // removes bag from scene
         console.log('got that bag')
     }
 
@@ -109,6 +121,21 @@ class Play extends Phaser.Scene {
     }
 
     spawnBears () {
-        
+        this.bearsIndex = Phaser.Math.Between(this.MIN_BEARS, this.MAX_BEARS)
+        this.remainingBears = this.bearsIndex
+        console.log(`total bears: '${this.remainingBears}'`)
+
+        // creates the number of gummy bears in 'this.bearsIndex'
+        for (let i = 0; i < this.bearsIndex; i++) {
+            let bearX = this.bearsOriginX
+            let bearY = this.bearsOriginY
+
+            console.log(`bear #'${i}'`)
+            // creates physics object
+            let newBear = this.physics.add.sprite(bearX, bearY, 'bear')
+            // adds to 'bears' group
+            this.bears.add(newBear)
+
+        }
     }
 }
